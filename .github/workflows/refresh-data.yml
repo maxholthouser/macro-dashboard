@@ -38,6 +38,8 @@ jobs:
 
       - name: Refresh data
         if: github.event_name == 'workflow_dispatch' || steps.schedule_gate.outputs.should_run == 'true'
+        env:
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: python3 scripts/update_macro_data.py
 
       - name: Commit updated data

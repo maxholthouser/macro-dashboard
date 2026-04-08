@@ -2,6 +2,7 @@
 
 import csv
 import json
+import os
 import re
 import subprocess
 from datetime import datetime, timezone
@@ -13,10 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 OUTPUT_PATH = DATA_DIR / "macro-data.js"
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+BEA_API_KEY = os.getenv("BEA_API_KEY", "").strip()
 
 SERIES_CONFIG = {
     "gdp_real": {"id": "GDPC1", "cosd": "2018-01-01"},
     "gdp_nominal": {"id": "GDP", "cosd": "2018-01-01"},
+    "consumption": {"id": "PCEC96", "cosd": "2018-01-01"},
+    "investment": {"id": "GPDIC1", "cosd": "2018-01-01"},
+    "government": {"id": "GCEC1", "cosd": "2018-01-01"},
+    "net_exports": {"id": "NETEXC", "cosd": "2018-01-01"},
     "industrial_production": {"id": "INDPRO", "cosd": "2020-01-01"},
     "retail_sales": {"id": "RSAFS", "cosd": "2020-01-01"},
     "consumer_spending": {"id": "PCE", "cosd": "2020-01-01"},
@@ -54,6 +60,25 @@ SERIES_CONFIG = {
     "consumer_sentiment": {"id": "UMCSENT", "cosd": "2020-01-01"},
     "budget_balance": {"id": "FYFSGDA188S", "cosd": "2018-01-01"},
     "debt_to_gdp": {"id": "GFDEGDQ188S", "cosd": "2018-01-01"},
+}
+
+BEA_GDP_TABLES = {
+    "current": {
+        "table_name": "T10105",
+        "series": {
+            "gdp_nominal": "1",
+            "consumption": "2",
+            "investment": "7",
+            "government": "22",
+            "net_exports": "27",
+        },
+    },
+    "real": {
+        "table_name": "T10106",
+        "series": {
+            "gdp_real": "1",
+        },
+    },
 }
 
 COVERAGE_NOTES = [
@@ -126,6 +151,60 @@ def fetch_all_series():
     return series_map, failures
 
 
+def fetch_bea_growth_series():
+    if not BEA_API_KEY:
+        return {}, "BEA_API_KEY not configured"
+
+    merged = {}
+    for table in BEA_GDP_TABLES.values():
+        params = {
+            "UserID": BEA_API_KEY,
+            "method": "GetData",
+            "datasetname": "NIPA",
+            "TableName": table["table_name"],
+            "Frequency": "Q",
+            "Year": "ALL",
+            "ResultFormat": "json",
+        }
+        payload = json.loads(fetch_text(f"https://apps.bea.gov/api/data/?{urlencode(params)}"))
+        rows = payload.get("BEAAPI", {}).get("Results", {}).get("Data", [])
+        for series_key, line_number in table["series"].items():
+            series_rows = []
+            for row in rows:
+                if str(row.get("LineNumber", "")).strip() != line_number:
+                    continue
+                value = parse_bea_value(row.get("DataValue"))
+                date_label = parse_bea_time_period(row.get("TimePeriod", ""))
+                if value is None or not date_label:
+                    continue
+                series_rows.append({"date": date_label, "value": value})
+            if series_rows:
+                merged[series_key] = sorted(series_rows, key=lambda item: item["date"])
+    return merged, None
+
+
+def parse_bea_value(raw):
+    if raw is None:
+        return None
+    cleaned = str(raw).replace(",", "").strip()
+    if cleaned in {"", "(NA)", "NA"}:
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def parse_bea_time_period(value):
+    text = str(value).strip()
+    if re.fullmatch(r"\d{4}Q[1-4]", text):
+        month = {"1": "01", "2": "04", "3": "07", "4": "10"}[text[-1]]
+        return f"{text[:4]}-{month}-01"
+    if re.fullmatch(r"\d{4}", text):
+        return f"{text}-01-01"
+    return ""
+
+
 def latest(rows):
     return rows[-1] if rows else None
 
@@ -194,6 +273,10 @@ def build_sections(series_map):
             "metrics": [
                 metric("Real GDP", fmt_num(value_of(series_map, 'gdp_real'), 0, 'B'), yoy_detail(series_map['gdp_real'], 4), date_of(series_map, 'gdp_real')),
                 metric("Nominal GDP", fmt_num(value_of(series_map, 'gdp_nominal'), 0, 'B'), yoy_detail(series_map['gdp_nominal'], 4), date_of(series_map, 'gdp_nominal')),
+                metric("Consumption", fmt_num(value_of(series_map, 'consumption'), 0, 'B'), yoy_detail(series_map['consumption'], 4), date_of(series_map, 'consumption')),
+                metric("Investment", fmt_num(value_of(series_map, 'investment'), 0, 'B'), yoy_detail(series_map['investment'], 4), date_of(series_map, 'investment')),
+                metric("Government", fmt_num(value_of(series_map, 'government'), 0, 'B'), yoy_detail(series_map['government'], 4), date_of(series_map, 'government')),
+                metric("Net Exports", fmt_num(value_of(series_map, 'net_exports'), 0, 'B'), diff_detail(series_map['net_exports'], 'B', 1), date_of(series_map, 'net_exports')),
                 metric("Industrial Production", fmt_num(value_of(series_map, 'industrial_production'), 1), mom_detail(series_map['industrial_production']), date_of(series_map, 'industrial_production')),
                 metric("Retail Sales", fmt_num(value_of(series_map, 'retail_sales'), 1, 'B'), mom_detail(series_map['retail_sales']), date_of(series_map, 'retail_sales')),
                 metric("Consumer Spending", fmt_num(value_of(series_map, 'consumer_spending'), 1, 'B'), mom_detail(series_map['consumer_spending']), date_of(series_map, 'consumer_spending')),
@@ -344,14 +427,27 @@ def fetch_yahoo_finance_articles():
 def build_payload():
     series_map, failures = fetch_all_series()
     notes = list(COVERAGE_NOTES)
+
+    bea_series, bea_error = fetch_bea_growth_series()
+    if bea_series:
+        series_map.update(bea_series)
+        notes.append("GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.")
+    elif bea_error:
+        notes.append(f"BEA direct GDP sourcing inactive: {bea_error}.")
+
     if failures:
         notes.append('Some series were unavailable in the latest refresh: ' + '; '.join(failures[:6]))
     articles = fetch_yahoo_finance_articles()
     if not articles:
         notes.append('Yahoo Finance headlines were unavailable during the latest refresh attempt.')
+
+    sources = ["FRED", "Yahoo Finance"]
+    if bea_series:
+        sources.insert(1, "BEA")
+
     return {
         "updated_at": datetime.now(timezone.utc).isoformat(),
-        "sources": ["FRED", "Yahoo Finance"],
+        "sources": sources,
         "yield_curve": build_yield_curve(series_map),
         "sections": build_sections(series_map),
         "charts": build_charts(series_map),
