@@ -1,0 +1,55 @@
+name: Refresh Macro Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12,13 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check New York schedule window
+        id: schedule_gate
+        run: |
+          python3 - <<'PY'
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          now = datetime.now(ZoneInfo("America/New_York"))
+          should_run = now.hour == 8
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"should_run={'true' if should_run else 'false'}\n")
+          print(f"Local New York time: {now.isoformat()}")
+          PY
+        shell: bash
+
+      - name: Refresh data
+        if: github.event_name == 'workflow_dispatch' || steps.schedule_gate.outputs.should_run == 'true'
+        run: python3 scripts/update_macro_data.py
+
+      - name: Commit updated data
+        if: github.event_name == 'workflow_dispatch' || steps.schedule_gate.outputs.should_run == 'true'
+        run: |
+          if git diff --quiet -- data/macro-data.js; then
+            echo "No data changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/macro-data.js
+          git commit -m "chore: refresh macro dashboard data"
+          git push
+        shell: bash
