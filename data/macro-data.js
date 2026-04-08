@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-04-08T05:00:52.851756+00:00",
+  "updated_at": "2026-04-08T05:50:54.318480+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -49,39 +49,39 @@ window.MACRO_DASHBOARD_DATA = {
       "metrics": [
         {
           "label": "Real GDP",
-          "value": "24,065,956B",
+          "value": "24,066.0B",
           "detail": "YoY 2.0%",
           "date_label": "2025-10-01"
         },
         {
           "label": "Nominal GDP",
-          "value": "31,442,483B",
+          "value": "31,442.5B",
           "detail": "YoY 5.4%",
           "date_label": "2025-10-01"
         },
         {
           "label": "Consumption",
-          "value": "21,368,065B",
+          "value": "21,368.1B",
           "detail": "YoY 5.0%",
           "date_label": "2025-10-01"
         },
         {
           "label": "Investment",
-          "value": "5,516,971B",
+          "value": "5,517.0B",
           "detail": "YoY 4.8%",
           "date_label": "2025-10-01"
         },
         {
           "label": "Government",
-          "value": "5,341,129B",
+          "value": "5,341.1B",
           "detail": "YoY 3.7%",
           "date_label": "2025-10-01"
         },
         {
           "label": "Net Exports",
-          "value": "N/A",
-          "detail": "Change unavailable",
-          "date_label": ""
+          "value": "-783.7B",
+          "detail": "-27.1 B vs prior",
+          "date_label": "2025-10-01"
         },
         {
           "label": "Industrial Production",
@@ -342,15 +342,15 @@ window.MACRO_DASHBOARD_DATA = {
     {
       "title": "10Y minus 2Y spread",
       "kicker": "Leading Indicator",
-      "color": "#2858d7",
-      "fill": "rgba(40, 88, 215, 0.12)",
+      "color": "#2563eb",
+      "fill": "rgba(37, 99, 235, 0.12)",
       "series": []
     },
     {
       "title": "CPI YoY",
       "kicker": "Inflation",
-      "color": "#bc7a22",
-      "fill": "rgba(188, 122, 34, 0.12)",
+      "color": "#c77725",
+      "fill": "rgba(199, 119, 37, 0.12)",
       "series": []
     },
     {
@@ -364,11 +364,13 @@ window.MACRO_DASHBOARD_DATA = {
   "yahoo_finance_top_articles": [],
   "coverage_notes": [
     "Most economic series come from FRED, which republishes official releases from BEA, BLS, the Fed, Census, EIA, IMF, and the Chicago Fed.",
+    "GDP, real GDP, and the major GDP components can come directly from the BEA NIPA API when a BEA key is configured.",
     "PMI, Shiller CAPE, and Treasury supply outlook are not included as live fields here because dependable free unattended sources are weak.",
-    "The leading indicator shown here uses a free proxy rather than the Conference Board LEI.",
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDPC1&cosd=2018-01-01']' returned non-zero exit status 92.; gdp_nominal (GDP): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2018-01-01']' returned non-zero exit status 92.; consumption (PCEC96): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEC96&cosd=2018-01-01']' returned non-zero exit status 92.; investment (GPDIC1): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GPDIC1&cosd=2018-01-01']' returned non-zero exit status 92.; government (GCEC1): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GCEC1&cosd=2018-01-01']' returned non-zero exit status 92.; net_exports (NETEXC): Command '['curl', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=NETEXC&cosd=2018-01-01']' returned non-zero exit status 92.",
+    "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429",
     "Yahoo Finance headlines were unavailable during the latest refresh attempt."
   ]
 };
