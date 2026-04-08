@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Macro Morning Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Hosted Macro Dashboard</p>
+          <h1>The macro tape before the market opens.</h1>
+          <p class="hero-text">
+            Growth, labor, inflation, policy, financial conditions, trade,
+            commodities, and the morning Yahoo Finance read list in one place.
+          </p>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-pill">
+            <span>Updated</span>
+            <strong id="last-updated">Waiting for refresh</strong>
+          </div>
+          <div class="hero-pill">
+            <span>Refresh target</span>
+            <strong>8:00 AM New York</strong>
+          </div>
+          <div class="hero-pill">
+            <span>Sources</span>
+            <strong id="source-count">FRED + Yahoo Finance</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="top-grid">
+        <article class="panel curve-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-label">Rates</p>
+              <h2>Yield curve</h2>
+            </div>
+          </div>
+          <div class="curve-summary">
+            <div class="curve-stat">
+              <span>2s10s</span>
+              <strong id="curve-2s10s">--</strong>
+            </div>
+            <div class="curve-stat">
+              <span>3m10y</span>
+              <strong id="curve-3m10y">--</strong>
+            </div>
+            <div class="curve-stat">
+              <span>Regime</span>
+              <strong id="curve-regime">--</strong>
+            </div>
+          </div>
+          <div id="yield-curve-chart" class="chart chart-medium"></div>
+          <div id="yield-curve-points" class="curve-points"></div>
+        </article>
+
+        <article class="panel news-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-label">Morning Reads</p>
+              <h2>Top Yahoo Finance articles</h2>
+            </div>
+          </div>
+          <div id="news-list" class="news-list"></div>
+        </article>
+      </section>
+
+      <section class="charts-grid" id="charts-grid"></section>
+      <section id="sections-grid" class="sections-grid"></section>
+
+      <section class="panel sources-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label">Coverage</p>
+            <h2>Notes and data caveats</h2>
+          </div>
+        </div>
+        <div id="coverage-notes" class="coverage-notes"></div>
+      </section>
+    </main>
+
+    <template id="section-template">
+      <article class="panel section-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label"></p>
+            <h2></h2>
+          </div>
+        </div>
+        <div class="metric-grid"></div>
+      </article>
+    </template>
+
+    <template id="metric-template">
+      <article class="metric-card">
+        <span class="metric-label"></span>
+        <strong class="metric-value"></strong>
+        <p class="metric-detail"></p>
+        <span class="metric-date"></span>
+      </article>
+    </template>
+
+    <template id="chart-template">
+      <article class="panel chart-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label chart-kicker"></p>
+            <h2 class="chart-title"></h2>
+          </div>
+        </div>
+        <div class="chart chart-tall"></div>
+      </article>
+    </template>
+
+    <template id="news-template">
+      <a class="news-item" target="_blank" rel="noreferrer">
+        <span class="news-rank"></span>
+        <div class="news-copy">
+          <h3 class="news-title"></h3>
+          <p class="news-summary"></p>
+        </div>
+      </a>
+    </template>
+
+    <script src="data/macro-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
