@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-04-08T05:50:54.318480+00:00",
+  "updated_at": "2026-04-08T13:34:56.512870+00:00",
   "sources": [
     "FRED",
     "BEA",
