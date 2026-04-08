@@ -44,12 +44,12 @@ function renderYieldCurve(yieldCurve) {
 
   points.forEach((point) => {
     const node = document.createElement("div");
-    node.className = "curve-point";
+    node.className = `curve-point${point.value == null ? " is-missing" : ""}`;
     node.innerHTML = `<span>${escapeHtml(point.label)}</span><strong>${escapeHtml(point.value_label)}</strong>`;
     elements.yieldCurvePoints.appendChild(node);
   });
 
-  renderLineChart(elements.yieldCurveChart, points, {
+  renderLineChart(elements.yieldCurveChart, points.filter((point) => Number.isFinite(point.value)), {
     xAccessor: (point) => point.label,
     yAccessor: (point) => point.value,
     stroke: "#0f766e",
@@ -69,10 +69,12 @@ function renderSections(sections) {
 
     (section.metrics || []).forEach((metric) => {
       const card = elements.metricTemplate.content.firstElementChild.cloneNode(true);
+      const missing = !metric.value || metric.value === "N/A";
+      card.classList.toggle("is-missing", missing);
       card.querySelector(".metric-label").textContent = metric.label;
       card.querySelector(".metric-value").textContent = metric.value || "N/A";
       card.querySelector(".metric-detail").textContent = metric.detail || " ";
-      card.querySelector(".metric-date").textContent = metric.date_label ? `As of ${metric.date_label}` : " ";
+      card.querySelector(".metric-date").textContent = metric.date_label ? `As of ${metric.date_label}` : missing ? "Source unavailable in latest refresh" : " ";
       metricGrid.appendChild(card);
     });
 
@@ -120,7 +122,8 @@ function renderCoverageNotes(notes) {
   elements.coverageNotes.innerHTML = "";
   notes.forEach((note) => {
     const div = document.createElement("div");
-    div.className = "coverage-note";
+    const warning = /inactive|unavailable|rate-limit|failed|not configured/i.test(note);
+    div.className = `coverage-note${warning ? " is-warning" : ""}`;
     div.textContent = note;
     elements.coverageNotes.appendChild(div);
   });
@@ -161,9 +164,7 @@ function renderLineChart(container, series, options) {
     value: options.yAccessor(point),
   }));
 
-  const path = points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
-    .join(" ");
+  const path = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ");
   const areaPath = `${path} L ${points[points.length - 1].x.toFixed(2)} ${height - padding.bottom} L ${points[0].x.toFixed(2)} ${height - padding.bottom} Z`;
   const zeroY = min <= 0 && max >= 0 ? yAt(0) : null;
   const gradientId = `gradient-${Math.random().toString(36).slice(2, 9)}`;
@@ -194,26 +195,19 @@ function buildGridLines(min, max, yAt, width, padding) {
     const value = min + ((max - min) / steps) * index;
     const y = yAt(value);
     lines.push(`<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="rgba(21,30,37,0.08)"></line>`);
-    lines.push(
-      `<text x="${padding.left - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="rgba(98,112,119,0.95)">${value.toFixed(1)}</text>`
-    );
+    lines.push(`<text x="${padding.left - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="rgba(98,112,119,0.95)">${value.toFixed(1)}</text>`);
   }
 
   return lines.join("");
 }
 
 function buildAxisLabels(points, height, formatter) {
-  const indexes = [0, Math.floor((points.length - 1) / 2), points.length - 1]
-    .filter((value, index, array) => array.indexOf(value) === index);
+  const indexes = [0, Math.floor((points.length - 1) / 2), points.length - 1].filter((value, index, array) => array.indexOf(value) === index);
 
-  return indexes
-    .map((index) => {
-      const point = points[index];
-      return `<text x="${point.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="rgba(98,112,119,0.95)">${escapeHtml(
-        formatter(point.label)
-      )}</text>`;
-    })
-    .join("");
+  return indexes.map((index) => {
+    const point = points[index];
+    return `<text x="${point.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="rgba(98,112,119,0.95)">${escapeHtml(formatter(point.label))}</text>`;
+  }).join("");
 }
 
 function renderEmptyState(message) {
@@ -224,9 +218,7 @@ function renderEmptyState(message) {
 }
 
 function formatTimestamp(value) {
-  return value
-    ? new Date(value).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
-    : "Unknown";
+  return value ? new Date(value).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) : "Unknown";
 }
 
 function formatBasisPoints(value) {

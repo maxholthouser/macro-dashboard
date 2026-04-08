@@ -70,7 +70,7 @@ BEA_GDP_TABLES = {
             "consumption": "2",
             "investment": "7",
             "government": "22",
-            "net_exports": "27",
+            "net_exports": "15",
         },
     },
     "real": {
@@ -83,8 +83,8 @@ BEA_GDP_TABLES = {
 
 COVERAGE_NOTES = [
     "Most economic series come from FRED, which republishes official releases from BEA, BLS, the Fed, Census, EIA, IMF, and the Chicago Fed.",
+    "GDP, real GDP, and the major GDP components can come directly from the BEA NIPA API when a BEA key is configured.",
     "PMI, Shiller CAPE, and Treasury supply outlook are not included as live fields here because dependable free unattended sources are weak.",
-    "The leading indicator shown here uses a free proxy rather than the Conference Board LEI.",
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
 ]
 
@@ -121,9 +121,28 @@ class AnchorCollector(HTMLParser):
 
 
 def fetch_text(url):
-    result = subprocess.run([
-        "curl", "-A", USER_AGENT, "-L", "--fail", "--silent", "--show-error", "--max-time", "45", url
-    ], capture_output=True, text=True, check=True)
+    result = subprocess.run(
+        [
+            "curl",
+            "--http1.1",
+            "--retry",
+            "2",
+            "--retry-delay",
+            "2",
+            "-A",
+            USER_AGENT,
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--max-time",
+            "45",
+            url,
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
     return result.stdout
 
 
@@ -177,7 +196,7 @@ def fetch_bea_growth_series():
                 date_label = parse_bea_time_period(row.get("TimePeriod", ""))
                 if value is None or not date_label:
                     continue
-                series_rows.append({"date": date_label, "value": value})
+                series_rows.append({"date": date_label, "value": value / 1000.0})
             if series_rows:
                 merged[series_key] = sorted(series_rows, key=lambda item: item["date"])
     return merged, None
@@ -271,12 +290,12 @@ def build_sections(series_map):
             "kicker": "Growth",
             "title": "Growth & Activity",
             "metrics": [
-                metric("Real GDP", fmt_num(value_of(series_map, 'gdp_real'), 0, 'B'), yoy_detail(series_map['gdp_real'], 4), date_of(series_map, 'gdp_real')),
-                metric("Nominal GDP", fmt_num(value_of(series_map, 'gdp_nominal'), 0, 'B'), yoy_detail(series_map['gdp_nominal'], 4), date_of(series_map, 'gdp_nominal')),
-                metric("Consumption", fmt_num(value_of(series_map, 'consumption'), 0, 'B'), yoy_detail(series_map['consumption'], 4), date_of(series_map, 'consumption')),
-                metric("Investment", fmt_num(value_of(series_map, 'investment'), 0, 'B'), yoy_detail(series_map['investment'], 4), date_of(series_map, 'investment')),
-                metric("Government", fmt_num(value_of(series_map, 'government'), 0, 'B'), yoy_detail(series_map['government'], 4), date_of(series_map, 'government')),
-                metric("Net Exports", fmt_num(value_of(series_map, 'net_exports'), 0, 'B'), diff_detail(series_map['net_exports'], 'B', 1), date_of(series_map, 'net_exports')),
+                metric("Real GDP", fmt_num(value_of(series_map, 'gdp_real'), 1, 'B'), yoy_detail(series_map['gdp_real'], 4), date_of(series_map, 'gdp_real')),
+                metric("Nominal GDP", fmt_num(value_of(series_map, 'gdp_nominal'), 1, 'B'), yoy_detail(series_map['gdp_nominal'], 4), date_of(series_map, 'gdp_nominal')),
+                metric("Consumption", fmt_num(value_of(series_map, 'consumption'), 1, 'B'), yoy_detail(series_map['consumption'], 4), date_of(series_map, 'consumption')),
+                metric("Investment", fmt_num(value_of(series_map, 'investment'), 1, 'B'), yoy_detail(series_map['investment'], 4), date_of(series_map, 'investment')),
+                metric("Government", fmt_num(value_of(series_map, 'government'), 1, 'B'), yoy_detail(series_map['government'], 4), date_of(series_map, 'government')),
+                metric("Net Exports", fmt_num(value_of(series_map, 'net_exports'), 1, 'B'), diff_detail(series_map['net_exports'], 'B', 1), date_of(series_map, 'net_exports')),
                 metric("Industrial Production", fmt_num(value_of(series_map, 'industrial_production'), 1), mom_detail(series_map['industrial_production']), date_of(series_map, 'industrial_production')),
                 metric("Retail Sales", fmt_num(value_of(series_map, 'retail_sales'), 1, 'B'), mom_detail(series_map['retail_sales']), date_of(series_map, 'retail_sales')),
                 metric("Consumer Spending", fmt_num(value_of(series_map, 'consumer_spending'), 1, 'B'), mom_detail(series_map['consumer_spending']), date_of(series_map, 'consumer_spending')),
@@ -377,8 +396,8 @@ def change_series(rows, limit):
 
 def build_charts(series_map):
     return [
-        {"title": "10Y minus 2Y spread", "kicker": "Leading Indicator", "color": "#2858d7", "fill": "rgba(40, 88, 215, 0.12)", "series": spread_series(series_map['yield_10y'], series_map['yield_2y'], 120, 100.0)},
-        {"title": "CPI YoY", "kicker": "Inflation", "color": "#bc7a22", "fill": "rgba(188, 122, 34, 0.12)", "series": yoy_series(series_map['cpi'], 36)},
+        {"title": "10Y minus 2Y spread", "kicker": "Leading Indicator", "color": "#2563eb", "fill": "rgba(37, 99, 235, 0.12)", "series": spread_series(series_map['yield_10y'], series_map['yield_2y'], 120, 100.0)},
+        {"title": "CPI YoY", "kicker": "Inflation", "color": "#c77725", "fill": "rgba(199, 119, 37, 0.12)", "series": yoy_series(series_map['cpi'], 36)},
         {"title": "Payrolls change", "kicker": "Labor", "color": "#0f766e", "fill": "rgba(15, 118, 110, 0.12)", "series": change_series(series_map['payrolls'], 36)},
     ]
 
