@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-04-08T13:34:56.512870+00:00",
+  "updated_at": "2026-05-09T12:46:12.958783+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -49,39 +49,39 @@ window.MACRO_DASHBOARD_DATA = {
       "metrics": [
         {
           "label": "Real GDP",
-          "value": "24,066.0B",
-          "detail": "YoY 2.0%",
-          "date_label": "2025-10-01"
+          "value": "24,174.5B",
+          "detail": "YoY 2.7%",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Nominal GDP",
-          "value": "31,442.5B",
-          "detail": "YoY 5.4%",
-          "date_label": "2025-10-01"
+          "value": "31,856.3B",
+          "detail": "YoY 6.0%",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Consumption",
-          "value": "21,368.1B",
-          "detail": "YoY 5.0%",
-          "date_label": "2025-10-01"
+          "value": "21,683.7B",
+          "detail": "YoY 5.5%",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Investment",
-          "value": "5,517.0B",
-          "detail": "YoY 4.8%",
-          "date_label": "2025-10-01"
+          "value": "5,646.6B",
+          "detail": "YoY 1.6%",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Government",
-          "value": "5,341.1B",
-          "detail": "YoY 3.7%",
-          "date_label": "2025-10-01"
+          "value": "5,418.4B",
+          "detail": "YoY 4.3%",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Net Exports",
-          "value": "-783.7B",
-          "detail": "-27.1 B vs prior",
-          "date_label": "2025-10-01"
+          "value": "-892.4B",
+          "detail": "-107.5 B vs prior",
+          "date_label": "2026-01-01"
         },
         {
           "label": "Industrial Production",
