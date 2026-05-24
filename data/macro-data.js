@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-05-23T12:53:45.579511+00:00",
+  "updated_at": "2026-05-24T12:54:04.705772+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -369,7 +369,7 @@ window.MACRO_DASHBOARD_DATA = {
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
     "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8001 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
     "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429",
     "Yahoo Finance headlines were unavailable during the latest refresh attempt."
   ]
