@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-05-24T12:54:04.705772+00:00",
+  "updated_at": "2026-05-30T12:57:30.595215+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -49,38 +49,38 @@ window.MACRO_DASHBOARD_DATA = {
       "metrics": [
         {
           "label": "Real GDP",
-          "value": "24,174.5B",
-          "detail": "YoY 2.7%",
+          "value": "24,152.7B",
+          "detail": "YoY 2.6%",
           "date_label": "2026-01-01"
         },
         {
           "label": "Nominal GDP",
-          "value": "31,856.3B",
-          "detail": "YoY 6.0%",
+          "value": "31,819.5B",
+          "detail": "YoY 5.9%",
           "date_label": "2026-01-01"
         },
         {
           "label": "Consumption",
-          "value": "21,683.7B",
+          "value": "21,677.7B",
           "detail": "YoY 5.5%",
           "date_label": "2026-01-01"
         },
         {
           "label": "Investment",
-          "value": "5,646.6B",
-          "detail": "YoY 1.6%",
+          "value": "5,620.4B",
+          "detail": "YoY 1.2%",
           "date_label": "2026-01-01"
         },
         {
           "label": "Government",
-          "value": "5,418.4B",
+          "value": "5,416.4B",
           "detail": "YoY 4.3%",
           "date_label": "2026-01-01"
         },
         {
           "label": "Net Exports",
-          "value": "-892.4B",
-          "detail": "-107.5 B vs prior",
+          "value": "-895.0B",
+          "detail": "-110.1 B vs prior",
           "date_label": "2026-01-01"
         },
         {
@@ -369,7 +369,7 @@ window.MACRO_DASHBOARD_DATA = {
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
     "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8001 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
     "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429",
     "Yahoo Finance headlines were unavailable during the latest refresh attempt."
   ]
