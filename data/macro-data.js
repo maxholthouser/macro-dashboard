@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-07-26T12:51:31.647941+00:00",
+  "updated_at": "2026-08-01T12:48:30.914805+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -49,39 +49,39 @@ window.MACRO_DASHBOARD_DATA = {
       "metrics": [
         {
           "label": "Real GDP",
-          "value": "24,180.4B",
-          "detail": "YoY 2.7%",
-          "date_label": "2026-01-01"
+          "value": "24,270.6B",
+          "detail": "YoY 2.1%",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Nominal GDP",
-          "value": "31,865.7B",
-          "detail": "YoY 6.1%",
-          "date_label": "2026-01-01"
+          "value": "32,475.2B",
+          "detail": "YoY 6.5%",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Consumption",
-          "value": "21,634.9B",
-          "detail": "YoY 5.3%",
-          "date_label": "2026-01-01"
+          "value": "22,078.2B",
+          "detail": "YoY 6.2%",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Investment",
-          "value": "5,634.0B",
-          "detail": "YoY 1.4%",
-          "date_label": "2026-01-01"
+          "value": "5,719.9B",
+          "detail": "YoY 6.7%",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Government",
-          "value": "5,416.7B",
-          "detail": "YoY 4.3%",
-          "date_label": "2026-01-01"
+          "value": "5,546.2B",
+          "detail": "YoY 5.9%",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Net Exports",
-          "value": "-820.0B",
-          "detail": "-35.0 B vs prior",
-          "date_label": "2026-01-01"
+          "value": "-869.0B",
+          "detail": "-49.1 B vs prior",
+          "date_label": "2026-04-01"
         },
         {
           "label": "Industrial Production",
@@ -369,7 +369,7 @@ window.MACRO_DASHBOARD_DATA = {
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
     "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8001 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
     "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429",
     "Yahoo Finance headlines were unavailable during the latest refresh attempt."
   ]
