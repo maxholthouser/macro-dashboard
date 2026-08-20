@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-08-19T14:33:35.939824+00:00",
+  "updated_at": "2026-08-20T12:20:11.788127+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -363,19 +363,19 @@ window.MACRO_DASHBOARD_DATA = {
   ],
   "yahoo_finance_top_articles": [
     {
-      "title": "Target delivers earnings beat, CEO 'encouraged' by turnaround traction",
-      "url": "https://finance.yahoo.com/markets/stocks/article/target-delivers-earnings-beat-ceo-encouraged-by-turnaround-traction-103412473.html",
-      "summary": "Target delivers earnings beat, CEO 'encouraged' by turnaround traction"
+      "title": "Scott Bessent just cried uncle on the bond market",
+      "url": "https://finance.yahoo.com/markets/article/scott-bessent-just-cried-uncle-on-the-bond-market-chart-of-the-day-100000219.html",
+      "summary": "Scott Bessent just cried uncle on the bond market"
     },
     {
-      "title": "Lowe's cautious outlook sends stock lower, flags 'pressure' in DIY spending",
-      "url": "https://finance.yahoo.com/markets/stocks/article/lowes-cautious-outlook-sends-stock-lower-as-retailer-flags-pressure-in-diy-spending-105716315.html",
-      "summary": "Lowe's cautious outlook sends stock lower, flags 'pressure' in DIY spending"
+      "title": "Walmart stock drops amid slower sales growth, raises guidance",
+      "url": "https://finance.yahoo.com/markets/stocks/article/walmart-raises-guidance-but-the-stock-drops-on-slower-sales-growth-182327744.html",
+      "summary": "Walmart stock drops amid slower sales growth, raises guidance"
     },
     {
-      "title": "50% tariffs on Canadian goods paused in eleventh-hour deal",
-      "url": "https://finance.yahoo.com/markets/article/50-tariffs-on-canadian-goods-paused-for-a-three-day-period-as-trump-says-theres-a-last-minute-deal-150239060.html",
-      "summary": "50% tariffs on Canadian goods paused in eleventh-hour deal"
+      "title": "Why Airbnb stock isn't far from a record high",
+      "url": "https://finance.yahoo.com/markets/stocks/article/why-airbnb-stock-isnt-far-from-a-record-high-114030942.html",
+      "summary": "Why Airbnb stock isn't far from a record high"
     }
   ],
   "coverage_notes": [
@@ -384,6 +384,8 @@ window.MACRO_DASHBOARD_DATA = {
     "PMI, Shiller CAPE, and Treasury supply outlook are not included as live fields here because dependable free unattended sources are weak.",
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDPC1&cosd=2018-01-01']' returned non-zero exit status 28.; gdp_nominal (GDP): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2018-01-01']' returned non-zero exit status 28.; consumption (PCEC96): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEC96&cosd=2018-01-01']' returned non-zero exit status 28.; investment (GPDIC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GPDIC1&cosd=2018-01-01']' returned non-zero exit status 28.; government (GCEC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GCEC1&cosd=2018-01-01']' returned non-zero exit status 28.; net_exports (NETEXC): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=NETEXC&cosd=2018-01-01']' returned non-zero exit status 28."
+    "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429"
   ]
 };
