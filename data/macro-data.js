@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-08-20T14:35:28.793268+00:00",
+  "updated_at": "2026-08-21T12:19:47.375806+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -363,19 +363,19 @@ window.MACRO_DASHBOARD_DATA = {
   ],
   "yahoo_finance_top_articles": [
     {
-      "title": "Stocks dip as bond yields and oil rise, Walmart drags retail",
-      "url": "https://finance.yahoo.com/markets/article/stocks-dip-as-bond-yields-and-oil-rise-walmart-earnings-drag-on-retail-alphacheck-140142173.html",
-      "summary": "Stocks dip as bond yields and oil rise, Walmart drags retail"
+      "title": "Bitcoin nears best week in years \u2014 here's what's fueling the rally",
+      "url": "https://finance.yahoo.com/markets/article/why-bitcoin-prices-are-suddenly-rallying-big-time-094451450.html",
+      "summary": "Bitcoin nears best week in years \u2014 here's what's fueling the rally"
     },
     {
-      "title": "Walmart stock drops amid slower sales growth, raises guidance",
-      "url": "https://finance.yahoo.com/markets/stocks/article/walmart-stock-drops-as-sales-growth-slows-customers-make-trade-offs-amid-high-fuel-costs-182327744.html",
-      "summary": "Walmart stock drops amid slower sales growth, raises guidance"
+      "title": "Here's what Nvidia needs to do to unlock an even better stock valuation",
+      "url": "https://finance.yahoo.com/markets/stocks/article/heres-what-nvidia-needs-to-do-to-unlock-an-even-better-stock-valuation-120651570.html",
+      "summary": "Here's what Nvidia needs to do to unlock an even better stock valuation"
     },
     {
-      "title": "Bugatti CEO: Can't build cars fast enough for growing collector base",
-      "url": "https://finance.yahoo.com/markets/article/bugatti-ceo-says-he-cant-build-cars-fast-enough-for-its-growing-collector-base-110000238.html",
-      "summary": "Bugatti CEO: Can't build cars fast enough for growing collector base"
+      "title": "Amid the chip bear market, healthcare is breaking out",
+      "url": "https://finance.yahoo.com/markets/stocks/article/amid-the-chip-bear-market-healthcare-is-breaking-out-chart-of-the-day-100000172.html",
+      "summary": "Amid the chip bear market, healthcare is breaking out"
     }
   ],
   "coverage_notes": [
@@ -384,6 +384,8 @@ window.MACRO_DASHBOARD_DATA = {
     "PMI, Shiller CAPE, and Treasury supply outlook are not included as live fields here because dependable free unattended sources are weak.",
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDPC1&cosd=2018-01-01']' returned non-zero exit status 28.; gdp_nominal (GDP): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2018-01-01']' returned non-zero exit status 28.; consumption (PCEC96): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEC96&cosd=2018-01-01']' returned non-zero exit status 28.; investment (GPDIC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GPDIC1&cosd=2018-01-01']' returned non-zero exit status 28.; government (GCEC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GCEC1&cosd=2018-01-01']' returned non-zero exit status 28.; net_exports (NETEXC): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=NETEXC&cosd=2018-01-01']' returned non-zero exit status 28."
+    "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429"
   ]
 };
