@@ -1,5 +1,5 @@
 window.MACRO_DASHBOARD_DATA = {
-  "updated_at": "2026-08-21T14:34:20.919904+00:00",
+  "updated_at": "2026-08-22T12:13:22.977066+00:00",
   "sources": [
     "FRED",
     "BEA",
@@ -363,19 +363,19 @@ window.MACRO_DASHBOARD_DATA = {
   ],
   "yahoo_finance_top_articles": [
     {
-      "title": "Bitcoin nears best week in years \u2014 here's what's fueling the rally",
-      "url": "https://finance.yahoo.com/markets/article/why-bitcoin-prices-are-suddenly-rallying-big-time-094451450.html",
-      "summary": "Bitcoin nears best week in years \u2014 here's what's fueling the rally"
+      "title": "US-Canada trade talks collapse as new 50% tariffs go into effect",
+      "url": "https://finance.yahoo.com/markets/article/us-canada-trade-talks-collapse-as-new-50-tariffs-go-into-effect-160526827.html",
+      "summary": "US-Canada trade talks collapse as new 50% tariffs go into effect"
     },
     {
-      "title": "Here's what Nvidia needs to do to unlock an even better stock valuation",
-      "url": "https://finance.yahoo.com/markets/stocks/article/heres-what-nvidia-needs-to-do-to-unlock-an-even-better-stock-valuation-120651570.html",
-      "summary": "Here's what Nvidia needs to do to unlock an even better stock valuation"
+      "title": "The ETF industry's newest asset class is absurdity",
+      "url": "https://finance.yahoo.com/markets/article/the-etf-industrys-newest-asset-class-is-absurdity-chart-of-the-day-111704930.html",
+      "summary": "The ETF industry's newest asset class is absurdity"
     },
     {
-      "title": "Amid the chip bear market, healthcare is breaking out",
-      "url": "https://finance.yahoo.com/markets/stocks/article/amid-the-chip-bear-market-healthcare-is-breaking-out-chart-of-the-day-100000172.html",
-      "summary": "Amid the chip bear market, healthcare is breaking out"
+      "title": "Bond yields give back almost all gains since Treasury intervention",
+      "url": "https://finance.yahoo.com/markets/article/bond-yields-head-higher-again-giving-back-almost-all-gains-since-treasury-department-intervention-165921301.html",
+      "summary": "Bond yields give back almost all gains since Treasury intervention"
     }
   ],
   "coverage_notes": [
@@ -384,6 +384,8 @@ window.MACRO_DASHBOARD_DATA = {
     "PMI, Shiller CAPE, and Treasury supply outlook are not included as live fields here because dependable free unattended sources are weak.",
     "Yahoo Finance headlines are collected from the live page each refresh and can occasionally rate-limit; when that happens, the last successful data file remains usable.",
     "GDP, real GDP, and major GDP components are sourced directly from the BEA NIPA API in this refresh.",
-    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDPC1&cosd=2018-01-01']' returned non-zero exit status 28.; gdp_nominal (GDP): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2018-01-01']' returned non-zero exit status 28.; consumption (PCEC96): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEC96&cosd=2018-01-01']' returned non-zero exit status 28.; investment (GPDIC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GPDIC1&cosd=2018-01-01']' returned non-zero exit status 28.; government (GCEC1): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GCEC1&cosd=2018-01-01']' returned non-zero exit status 28.; net_exports (NETEXC): Command '['curl', '--http1.1', '--retry', '2', '--retry-delay', '2', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-L', '--fail', '--silent', '--show-error', '--max-time', '45', 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=NETEXC&cosd=2018-01-01']' returned non-zero exit status 28."
+    "FRED was timing out from the refresh runner, so remaining FRED series were skipped after repeated failures to keep the dashboard current.",
+    "Some series were unavailable in the latest refresh: gdp_real (GDPC1): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; gdp_nominal (GDP): curl exit 28: curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received; FRED circuit breaker opened after repeated timeouts; remaining FRED series were skipped for this refresh.",
+    "Some live market quote refreshes were unavailable: sp500 (%5EGSPC): curl exit 22: curl: (22) The requested URL returned error: 429; oil (CL=F): curl exit 22: curl: (22) The requested URL returned error: 429; gold (GC=F): curl exit 22: curl: (22) The requested URL returned error: 429; copper (HG=F): curl exit 22: curl: (22) The requested URL returned error: 429"
   ]
 };
